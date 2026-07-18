@@ -7,15 +7,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
 @RestController
+@SuppressWarnings("ALL")
 public class HelloWorldApplication {
 
-	@GetMapping("/hello")
-	public String sayHello() {
-		return "Hello World!";
-	}
+    @GetMapping("/hello")
+    public String sayHello() {
+        return "Hello World!";
+    }
 
-	public static void main(String[] args) {
-		SpringApplication.run(HelloWorldApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(HelloWorldApplication.class, args);
+    }
 
 }
