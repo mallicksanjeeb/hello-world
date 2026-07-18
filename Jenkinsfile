@@ -2,9 +2,9 @@ pipeline {
 	agent any
 
 	environment {
-		OCP_SERVER = 'https://api.crc.testing:6443'
+		OCP_SERVER = 'https://console-openshift-console.apps-crc.testing'
 		OCP_PROJECT = 'sanjeeb-mallick'
-		OCP_TOKEN = credentials('ocp-token-id')  // Jenkins credential ID
+		//OCP_TOKEN = credentials('ocp-token-id')  // Jenkins credential ID
 	}
 
 	stages {
