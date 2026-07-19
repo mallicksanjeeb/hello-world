@@ -71,6 +71,7 @@ pipeline {
                         echo "Logging into local OCP cluster..."
                         /opt/homebrew/bin/oc login $OCP_SERVER \
                           --token=$OCP_TOKEN \
+                          --certificate-authority=$OCP_CA \
                           --insecure-skip-tls-verify=true
                     '''
 				} /*{
