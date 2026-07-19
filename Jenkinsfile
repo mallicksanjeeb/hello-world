@@ -53,6 +53,12 @@ pipeline {
 			}
 		}
 
+		stage('Check oc') {
+			steps {
+				sh 'oc version'
+			}
+		}
+
 		stage('Deploy to OpenShift') {
 			steps {
 				sh '''
