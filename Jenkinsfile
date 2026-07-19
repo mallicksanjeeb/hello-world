@@ -91,8 +91,8 @@ pipeline {
                     echo "Deploying application..."
                     /opt/homebrew/bin/oc project $OCP_PROJECT
                     /opt/homebrew/bin/oc apply -f openshift/deployment.yaml
-                    oc set image deployment/myapp myapp=$DOCKER_USER/hello-world-0.0.1-snapshot:${BUILD_NUMBER}
-					oc rollout status deployment/myapp
+                    /opt/homebrew/bin/oc set image deployment/myapp myapp=$DOCKER_USER/hello-world-0.0.1-snapshot:${BUILD_NUMBER}
+					/opt/homebrew/bin/oc rollout status deployment/myapp
                 '''
 			}
 		}
