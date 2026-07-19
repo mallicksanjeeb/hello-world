@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: springboot-app
-          image: your-registry/your-app:latest
+          image: dockerforsanjeeb/hello-world-0.0.1-snapshot:latest
           ports:
             - containerPort: 8080
           env:
