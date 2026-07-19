@@ -26,12 +26,17 @@ pipeline {
 			}
 		}
 
-		stage('Build Docker Image') {
+		stage('Docker Build & Push') {
 			steps {
-				sh '''
-                docker build -t your-registry/your-app:${BUILD_NUMBER} .
-                docker push your-registry/your-app:${BUILD_NUMBER}
-                '''
+				withCredentials([usernamePassword(credentialsId: 'docker-hub',
+					usernameVariable: 'DOCKER_USER',
+					passwordVariable: 'DOCKER_PASS')]) {
+					sh '''
+                        echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
+                        docker build -t $DOCKER_USER/your-app:${BUILD_NUMBER} .
+                        docker push $DOCKER_USER/your-app:${BUILD_NUMBER}
+                    '''
+				}
 			}
 		}
 
