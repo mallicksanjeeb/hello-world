@@ -6,6 +6,8 @@ pipeline {
 		OCP_SERVER = 'https://console-openshift-console.apps-crc.testing'
 		OCP_PROJECT = 'sanjeeb-mallick-ocp-namespace'
 		OCP_TOKEN = credentials('ocp-token-id')  // Jenkins credential ID
+		//Adjust path if you store ca.crt elsewhere
+		OCP_CA = "/Users/sk/ca.crt"
 	}
 
 	stages {
@@ -59,15 +61,41 @@ pipeline {
 			}
 		}
 
+		stage('Login to OpenShift') {
+			steps {
+				withCredentials([string(credentialsId: 'ocp-token-id', variable: 'OCP_TOKEN')]) {
+					sh '''
+                        echo "Logging into OpenShift..."
+                        /opt/homebrew/bin/oc login $OCP_SERVER
+                          --token=$OCP_TOKEN \
+                          --certificate-authority=$OCP_CA
+                    '''
+				}
+			}
+		}
+
 		stage('Deploy to OpenShift') {
 			steps {
 				sh '''
+                    echo "Deploying application..."
+                    /opt/homebrew/bin/oc project $OCP_PROJECT
+                    /opt/homebrew/bin/oc apply -f openshift/deployment.yaml
+                    /opt/homebrew/bin/oc set image deployment/hello-world-0.0.1-snapshot hello-world-0.0.1-snapshot=hello-world-0.0.1-snapshot/hello-world-0.0.1-snapshot:${BUILD_NUMBER} --record
+                	/opt/homebrew/bin/oc rollout status deployment/hello-world-0.0.1-snapshot
+                '''
+			}
+		}
+
+		/*stage('Deploy to OpenShift') {
+			steps {
+				sh '''
+				echo "Deploying application..."
                 /opt/homebrew/bin/oc login $OCP_SERVER --token=$OCP_TOKEN
                 /opt/homebrew/bin/oc project $OCP_PROJECT
                 /opt/homebrew/bin/oc set image deployment/hello-world-0.0.1-snapshot hello-world-0.0.1-snapshot=hello-world-0.0.1-snapshot/hello-world-0.0.1-snapshot:${BUILD_NUMBER} --record
                 /opt/homebrew/bin/oc rollout status deployment/hello-world-0.0.1-snapshot
                 '''
 			}
-		}
+		}*/
 	}
 }
