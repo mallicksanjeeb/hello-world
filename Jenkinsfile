@@ -55,17 +55,17 @@ pipeline {
 
 		stage('Check oc') {
 			steps {
-				sh '/usr/local/bin/oc version'
+				sh '/opt/homebrew/bin/oc version'
 			}
 		}
 
 		stage('Deploy to OpenShift') {
 			steps {
 				sh '''
-                /usr/local/bin/oc login $OCP_SERVER --token=$OCP_TOKEN
-                /usr/local/bin/oc project $OCP_PROJECT
-                /usr/local/bin/oc set image deployment/hello-world-0.0.1-snapshot hello-world-0.0.1-snapshot=hello-world-0.0.1-snapshot/hello-world-0.0.1-snapshot:${BUILD_NUMBER} --record
-                /usr/local/bin/oc rollout status deployment/hello-world-0.0.1-snapshot
+                /opt/homebrew/bin/oc login $OCP_SERVER --token=$OCP_TOKEN
+                /opt/homebrew/bin/oc project $OCP_PROJECT
+                /opt/homebrew/bin/oc set image deployment/hello-world-0.0.1-snapshot hello-world-0.0.1-snapshot=hello-world-0.0.1-snapshot/hello-world-0.0.1-snapshot:${BUILD_NUMBER} --record
+                /opt/homebrew/bin/oc rollout status deployment/hello-world-0.0.1-snapshot
                 '''
 			}
 		}
