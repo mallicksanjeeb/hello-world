@@ -69,18 +69,18 @@ pipeline {
 				]) {
 					sh '''
                         echo "Logging into local OCP cluster..."
-                        oc login https://<cluster-api-url>:6443 \
+                        /opt/homebrew/bin/oc login $OCP_SERVER \
                           --token=$OCP_TOKEN \
                           --certificate-authority=$OCP_CA
                     '''
-				} {
+				} /*{
 					sh '''
                         echo "Logging into OpenShift..."
                         /opt/homebrew/bin/oc login $OCP_SERVER
                           --token=$OCP_TOKEN \
                           --certificate-authority=$OCP_CA
                     '''
-				}
+				}*/
 			}
 		}
 
