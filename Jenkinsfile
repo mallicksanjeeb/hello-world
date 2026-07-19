@@ -5,7 +5,7 @@ pipeline {
 		PATH = "/usr/local/bin:${env.PATH}"
 		OCP_SERVER = 'https://console-openshift-console.apps-crc.testing'
 		OCP_PROJECT = 'sanjeeb-mallick'
-		//OCP_TOKEN = credentials('ocp-token-id')  // Jenkins credential ID
+		OCP_TOKEN = credentials('ocp-token-id')  // Jenkins credential ID
 	}
 
 	stages {
@@ -58,8 +58,8 @@ pipeline {
 				sh '''
                 oc login $OCP_SERVER --token=$OCP_TOKEN
                 oc project $OCP_PROJECT
-                oc set image deployment/your-app your-app=your-registry/your-app:${BUILD_NUMBER} --record
-                oc rollout status deployment/your-app
+                oc set image deployment/hello-world-0.0.1-snapshot hello-world-0.0.1-snapshot=hello-world-0.0.1-snapshot/hello-world-0.0.1-snapshot:${BUILD_NUMBER} --record
+                oc rollout status deployment/hello-world-0.0.1-snapshot
                 '''
 			}
 		}
