@@ -26,6 +26,12 @@ pipeline {
 			}
 		}
 
+		stage('Check PATH') {
+			steps {
+				sh 'echo $PATH'
+			}
+		}
+
 		stage('Check Docker') {
 			steps {
 				sh 'docker version'
