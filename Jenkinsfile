@@ -26,6 +26,14 @@ pipeline {
 			}
 		}
 
+		stages {
+			stage('Check Docker') {
+				steps {
+					sh 'docker version'
+				}
+			}
+		}
+
 		stage('Docker Build & Push') {
 			steps {
 				withCredentials([usernamePassword(credentialsId: 'docker-hub',
