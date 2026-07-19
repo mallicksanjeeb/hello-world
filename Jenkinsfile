@@ -3,7 +3,7 @@ pipeline {
 
 	environment {
 		PATH = "/usr/local/bin:${env.PATH}"
-		OCP_SERVER = 'https://console-openshift-console.apps-crc.testing --certificate-authority'
+		OCP_SERVER = 'https://api.crc.testing:6443'
 		OCP_PROJECT = 'sanjeeb-mallick-ocp-namespace'
 		OCP_TOKEN = credentials('ocp-token-id')  // Jenkins credential ID
 		//Adjust path if you store ca.crt elsewhere
