@@ -44,7 +44,7 @@ pipeline {
 					usernameVariable: 'DOCKER_USER',
 					passwordVariable: 'DOCKER_PASS')]) {
 					sh '''
-                        echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
+                        echo "$DOCKER_PASS" | /usr/local/bin/docker login -u "$DOCKER_USER" --password-stdin
                         /usr/local/bin/docker build -t $DOCKER_USER/your-app:${BUILD_NUMBER} .
                         /usr/local/bin/docker push $DOCKER_USER/your-app:${BUILD_NUMBER}
                     '''
