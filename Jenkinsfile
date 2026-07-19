@@ -2,6 +2,7 @@ pipeline {
 	agent any
 
 	environment {
+		PATH = "/usr/local/bin:${env.PATH}"
 		OCP_SERVER = 'https://console-openshift-console.apps-crc.testing'
 		OCP_PROJECT = 'sanjeeb-mallick'
 		//OCP_TOKEN = credentials('ocp-token-id')  // Jenkins credential ID
@@ -45,7 +46,7 @@ pipeline {
 					passwordVariable: 'DOCKER_PASS')]) {
 					sh '''
                         echo "$DOCKER_PASS" | /usr/local/bin/docker login -u "$DOCKER_USER" --password-stdin
-                        /usr/local/bin/docker build -t $DOCKER_USER/your-app:${BUILD_NUMBER} .
+                        /usr/local/bin/docker build -t $DOCKER_USER/hello-world-0.0.1-SNAPSHOT.jar:${BUILD_NUMBER} .
                         /usr/local/bin/docker push $DOCKER_USER/your-app:${BUILD_NUMBER}
                     '''
 				}
