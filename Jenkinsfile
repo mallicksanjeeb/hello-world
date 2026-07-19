@@ -64,7 +64,7 @@ pipeline {
 		stage('Login to OpenShift') {
 			steps {
 				withCredentials([
-					string(credentialsId: 'ocp-token', variable: 'OCP_TOKEN'),
+					string(credentialsId: 'ocp-token-id', variable: 'OCP_TOKEN'),
 					file(credentialsId: 'ocp-ca', variable: 'OCP_CA')
 				]) {
 					sh '''
