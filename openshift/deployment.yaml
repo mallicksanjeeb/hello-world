@@ -1,27 +1,27 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: springboot-app
+  name: hello-world
   labels:
-    app: springboot-app
+    app: hello-world
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: springboot-app
+      app: hello-world
   template:
     metadata:
       labels:
-        app: springboot-app
+        app: hello-world
     spec:
       containers:
-        - name: springboot-app
+        - name: hello-world-container
           image: dockerforsanjeeb/hello-world-0.0.1-snapshot:latest
           ports:
             - containerPort: 8080
           env:
             - name: SPRING_PROFILES_ACTIVE
-              value: prod
+              value: dev
           resources:
             requests:
               memory: "512Mi"
@@ -45,12 +45,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: springboot-app-service
+  name: hello-world-service
   labels:
-    app: springboot-app
+    app: hello-world
 spec:
   selector:
-    app: springboot-app
+    app: hello-world
   ports:
     - protocol: TCP
       port: 80
@@ -60,11 +60,11 @@ spec:
 apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
-  name: springboot-app-route
+  name: hello-world-route
 spec:
   to:
     kind: Service
-    name: springboot-app-service
+    name: hello-world-service
   port:
     targetPort: 8080
   tls:
