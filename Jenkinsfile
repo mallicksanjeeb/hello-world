@@ -46,8 +46,8 @@ pipeline {
 					passwordVariable: 'DOCKER_PASS')]) {
 					sh '''
                         echo "$DOCKER_PASS" | /usr/local/bin/docker login -u "$DOCKER_USER" --password-stdin
-                        /usr/local/bin/docker build -t $DOCKER_USER/hello-world-0.0.1-SNAPSHOT.jar:${BUILD_NUMBER} .
-                        /usr/local/bin/docker push $DOCKER_USER/your-app:${BUILD_NUMBER}
+                        /usr/local/bin/docker build -t $DOCKER_USER/hello-world-0.0.1-snapshot:${BUILD_NUMBER} .
+                        /usr/local/bin/docker push $DOCKER_USER/hello-world-0.0.1-snapshot:${BUILD_NUMBER}
                     '''
 				}
 			}
