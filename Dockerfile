@@ -1,5 +1,5 @@
-# Use OpenJDK 17 as the base image
-FROM openjdk:17
+# Eclipse Temurin JDK 17 (Debian-based)
+FROM eclipse-temurin:17-jdk
 
 # Set working directory
 WORKDIR /app
