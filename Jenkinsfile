@@ -48,8 +48,8 @@ pipeline {
 					passwordVariable: 'DOCKER_PASS')]) {
 					sh '''
                         echo "$DOCKER_PASS" | /usr/local/bin/docker login -u "$DOCKER_USER" --password-stdin
-                        /usr/local/bin/docker build -t $DOCKER_USER/hello-world-0.0.1-snapshot:${BUILD_NUMBER} .
-                        /usr/local/bin/docker push $DOCKER_USER/hello-world-0.0.1-snapshot:${BUILD_NUMBER}
+                        /usr/local/bin/docker build -t $DOCKER_USER/hello-world:v1
+                        /usr/local/bin/docker push $DOCKER_USER/hello-world:v1
                     '''
 				}
 			}
@@ -91,7 +91,7 @@ pipeline {
                     echo "Deploying application..."
                     /opt/homebrew/bin/oc project $OCP_PROJECT
                     /opt/homebrew/bin/oc apply -f openshift/deployment.yaml
-                    /opt/homebrew/bin/oc set image deployment/hello-world hello-world-container=$DOCKER_USER/hello-world-0.0.1-snapshot:${BUILD_NUMBER}
+                    /opt/homebrew/bin/oc set image deployment/hello-world hello-world-container=$DOCKER_USER/hello-world:v1
 					/opt/homebrew/bin/oc rollout status deployment/hello-world
                 '''
 			}

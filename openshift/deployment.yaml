@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: hello-world-container
-          image: dockerforsanjeeb/hello-world-0.0.1-snapshot:latest
+          image: dockerforsanjeeb/hello-world:v1
           ports:
             - containerPort: 8080
           env:
