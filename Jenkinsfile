@@ -63,7 +63,17 @@ pipeline {
 
 		stage('Login to OpenShift') {
 			steps {
-				withCredentials([string(credentialsId: 'ocp-token-id', variable: 'OCP_TOKEN')]) {
+				withCredentials([
+					string(credentialsId: 'ocp-token', variable: 'OCP_TOKEN'),
+					file(credentialsId: 'ocp-ca', variable: 'OCP_CA')
+				]) {
+					sh '''
+                        echo "Logging into local OCP cluster..."
+                        oc login https://<cluster-api-url>:6443 \
+                          --token=$OCP_TOKEN \
+                          --certificate-authority=$OCP_CA
+                    '''
+				} {
 					sh '''
                         echo "Logging into OpenShift..."
                         /opt/homebrew/bin/oc login $OCP_SERVER
