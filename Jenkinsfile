@@ -34,7 +34,7 @@ pipeline {
 
 		stage('Check Docker') {
 			steps {
-				sh 'docker version'
+				sh '/usr/local/bin/docker version'
 			}
 		}
 
@@ -45,8 +45,8 @@ pipeline {
 					passwordVariable: 'DOCKER_PASS')]) {
 					sh '''
                         echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
-                        docker build -t $DOCKER_USER/your-app:${BUILD_NUMBER} .
-                        docker push $DOCKER_USER/your-app:${BUILD_NUMBER}
+                        /usr/local/bin/docker build -t $DOCKER_USER/your-app:${BUILD_NUMBER} .
+                        /usr/local/bin/docker push $DOCKER_USER/your-app:${BUILD_NUMBER}
                     '''
 				}
 			}
